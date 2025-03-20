@@ -1,11 +1,11 @@
 {
 	"id": "sample-plugin",
-	"name": "Sample Plugin",
-	"version": "1.0.0",
+	"name": "Timeline Plugin",
+	"version": "1.0.1",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
+	"description": "Enhancing Obsidian with advanced task management and visualization features across Timeline, Unsorted Items, Weekly, and Calendar views.",
+	"author": "Edward Chhun, Rafael Neal",
+	"authorUrl": "https://github.com/EdwardChhun",
 	"fundingUrl": "https://obsidian.md/pricing",
 	"isDesktopOnly": false
 }
