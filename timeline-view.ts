@@ -192,12 +192,15 @@ export class TimelineView extends ItemView {
 
 		// Read file content
 		const content = await this.app.vault.read(this.timelineFile);
-		
+		const headerFormat = this.plugin.settings.headerFormat;
+		const dateFormat = this.plugin.settings.dateFormat;
+
 		// Parse content into days and tasks
-		this.parseTasks(content);
+		this.parseTasks(content, headerFormat, dateFormat);
 	}
 
-	parseTasks(content: string) {
+	// PASS HEADING and FORMAT
+	parseTasks(content: string, headerFormat: string, dateFormat: string) {
 		// Split content by lines
 		const lines = content.split('\n');
 		
@@ -206,14 +209,14 @@ export class TimelineView extends ItemView {
 		let taskStack: Task[] = [];
 		
 		// Today's date for comparison
-		const today = moment().format('YYYY-MM-DD');
+		const today = moment().format(dateFormat);
 		
 		// Process each line
 		for (let i = 0; i < lines.length; i++) {
 			const line = lines[i];
 			
-			// Check if line is a day header (## format)
-			if (line.startsWith('## ')) {
+			// Check if line is a day header (headerFormat)
+			if (line.startsWith(headerFormat + " ")) {
 				// If we were processing a day, save it
 				if (currentDay) {
 					currentDay.tasks = currentTasks;
@@ -221,7 +224,7 @@ export class TimelineView extends ItemView {
 				}
 				
 				// Start a new day
-				const dateText = line.substring(3).trim();
+				const dateText = line.substring(this.plugin.settings.headerFormat.length + 1).trim();
 				let date = '';
 				
 				// Try to parse the date

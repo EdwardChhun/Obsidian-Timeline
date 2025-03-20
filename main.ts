@@ -7,6 +7,7 @@ interface TasksTimelineSettings {
 	defaultView: string;
 	showJumpToToday: boolean;
 	dateFormat: string;
+	headerFormat: string;
 }
 
 const DEFAULT_SETTINGS: TasksTimelineSettings = {
@@ -285,6 +286,17 @@ class TasksTimelineSettingTab extends PluginSettingTab {
 				.setValue(this.plugin.settings.dateFormat)
 				.onChange(async (value) => {
 					this.plugin.settings.dateFormat = value;
+					await this.plugin.saveSettings();
+				}));
+
+		new Setting(containerEl)
+			.setName('Header Config')
+			.setDesc('Set the size of the date header')
+			.addText(text => text
+				.setPlaceholder('##')
+				.setValue(this.plugin.settings.headerFormat)
+				.onChange(async (value) => {
+					this.plugin.settings.headerFormat = value;
 					await this.plugin.saveSettings();
 				}));
 	}
